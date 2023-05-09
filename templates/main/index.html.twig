@@ -1,1 +1,17 @@
-<a href="{{ path("sort_insertion") }}">Insertion sort</a>
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div>
+        <a href="{{ path("sort_insertion") }}">Insertion sort</a>
+    </div>
+    <div>
+        <a href="{{ path("general") }}">Test</a>
+    </div>
+    <div>
+        <a href="{{ path("sort_selection") }}">Selection sort</a>
+    </div>
+    <div>
+        <a href="{{ path("sort_merge") }}">Merge sort</a>
+    </div>
+{% endblock %}
+

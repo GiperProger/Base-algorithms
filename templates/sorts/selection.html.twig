@@ -1,0 +1,42 @@
+{% extends 'base_sort.html.twig' %}
+
+{% block body %}
+    <div>
+        {% for toSortItem in toSort %}
+            <span class="circle_to_sort">{{ toSortItem }}</span>
+        {% endfor %}
+    </div>
+
+    <code>
+        /**
+        * @param array $elementsToSort
+        * @param bool $asc
+        * @return array
+        */
+        public function selectionSort(array $elementsToSort, bool $asc = true): array
+        {
+            $i = 0;
+
+            while ($i < count($elementsToSort)){
+                $unsortedPart = array_slice($elementsToSort, $i);
+                $delta = $asc ? min($unsortedPart) : max($unsortedPart);
+                $minIndex = array_search($delta, $elementsToSort);
+
+                $temp = $elementsToSort[$i];
+                $elementsToSort[$i] = $delta;
+                $elementsToSort[$minIndex] = $temp;
+                $i++;
+            }
+
+            return $elementsToSort;
+
+        }
+
+    </code>
+
+    <div>
+        {% for sortedItem in sorted %}
+            <span class="circle_sorted">{{ sortedItem }}</span>
+        {% endfor %}
+    </div>
+{% endblock %}
