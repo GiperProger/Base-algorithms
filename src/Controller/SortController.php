@@ -65,7 +65,7 @@ class SortController extends AbstractController
         shuffle($elementsToSort);
         $sorted = $this->sortService->mergeSort($elementsToSort, true);
 
-        return $this->render('sorts/selection.html.twig', [
+        return $this->render('sorts/merge.html.twig', [
             'toSort' => $elementsToSort,
             'sorted' => $sorted
         ]);
@@ -77,41 +77,13 @@ class SortController extends AbstractController
      */
     public function general()
     {
+        $elementsToSort = range(1, 10);
+        shuffle($elementsToSort);
 
-        $a = str_split(decbin(800));
-        $b = str_split(decbin(121));
-        $result = [];
+        $max = $this->sortService->findMax($elementsToSort);
 
-        $biggestArray = count($a) > count($b) ? $a : $b;
-        $smallestArray = count($a) < count($b) ? $a : $b;
-
-        $carry = 0;
-
-
-        while (count($biggestArray) > 0) {
-            $sum = ((int)array_pop($biggestArray) + (int)array_pop($smallestArray)) + $carry;
-
-            $carry = 0;
-
-            if($sum >= 2){
-                $sum -=2;
-                $carry = 1;
-            }
-
-            array_unshift($result, $sum);
-
-        }
-
-        if($carry == 1){
-            array_unshift($result, 1);
-        }
-
-
-        dump(bindec(implode("",$result)));
+        var_dump($max);
         exit;
-
-
-
 
     }
 }

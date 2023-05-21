@@ -1,0 +1,57 @@
+{% extends 'base_sort.html.twig' %}
+
+{% block body %}
+    <div>
+        {% for toSortItem in toSort %}
+            <span class="circle_to_sort">{{ toSortItem }}</span>
+        {% endfor %}
+    </div>
+
+    <code>
+        /**
+        * @param array $left
+        * @param array $right
+        * @param $asc
+        * @return array
+        */
+        function merge(array $left, array $right, $asc): array
+        {
+            $sorted = [];
+
+            while (count($left) > 0 && count($right) > 0 ){
+                if($this->ascOrDesc($left[0], $right[0], $asc)){
+                    $sorted[] = array_shift($right);
+                }else{
+                    $sorted[] = array_shift($left);
+                }
+            }
+
+            return array_merge($sorted, $left, $right);
+        }
+
+        /**
+        * @param array $elementsToSort
+        * @param bool $asc
+        * @return array
+        */
+        function mergeSort(array $elementsToSort, bool $asc = true): array
+        {
+            if(count($elementsToSort) < 2){
+                return $elementsToSort;
+            }
+
+            $center = (int)ceil(count($elementsToSort) / 2);
+
+            $parts = array_chunk($elementsToSort, $center);
+
+            return $this->merge( $this->mergeSort($parts[0], $asc), $this->mergeSort($parts[1], $asc), $asc);
+
+        }
+    </code>
+
+    <div>
+        {% for sortedItem in sorted %}
+            <span class="circle_sorted">{{ sortedItem }}</span>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -90,10 +90,10 @@ class SortService
 
     /**
      * @param array $elementsToSort
-     * @param $asc
+     * @param bool $asc
      * @return array
      */
-    public function mergeSort(array $elementsToSort, $asc): array
+    public function mergeSort(array $elementsToSort, bool $asc = true): array
     {
         if(count($elementsToSort) < 2){
             return $elementsToSort;
@@ -103,8 +103,6 @@ class SortService
 
         $parts = array_chunk($elementsToSort, $center);
 
-        return $this->merge($this->mergeSort($parts[0], $asc), $this->mergeSort($parts[1], $asc), $asc);
-
+        return $this->merge( $this->mergeSort($parts[0], $asc), $this->mergeSort($parts[1], $asc), $asc);
     }
-
 }
